@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">My Handy Coach</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="content_authority">com.genenakagaki.myhandycoach</string>
+    <!-- General -->
+
+    <!-- Search -->
+    <string name="search_hint">Search exercises</string>
+
+    <!-- Duration Picker Dialog -->
+    <string name="title_set_rest_time">Set rest time</string>
+    <string name="title_set_workout_time">Set workout time</string>
+
+    <string name="text_colon">:</string>
+    <string name="text_minutes">Minutes</string>
+    <string name="text_seconds">Seconds</string>
+
+    <string name="button_cancel">Cancel</string>
+    <string name="button_set">Set</string>
+
+    <!-- Exercise Settings -->
+    <string name="title_activity_exercise">Exercise</string>
+    <string name="exercise">Exercise</string>
+    <string name="sets">Sets</string>
+    <string name="reps">Reps</string>
+    <string name="rest_duration">Rest interval between sets</string>
+    <string name="button_start_exercise">Start Exercise</string>
+    <string name="button_discard_changes">Discard Changes</string>
+    <string name="exercise_setting_error_empty_input">Must be more than 0</string>
+    <string name="exercise_setting_error_empty_duration">Must be more than 0 seconds</string>
+
+    <!-- Regular Exercise Settings -->
+    <string name="regular_set_duration_enabled">Exercise time for each set</string>
+    <string name="regular_set_duration_disabled">Exercise time for each set not timed</string>
+
+    <!-- Reaction Exercise Settings -->
+    <string name="choices">Choices</string>
+    <string name="reaction_exercise_setting_choice_interval">Interval between reps</string>
+    <string name="reaction_choice_interval">Duration between reps</string>
+
+    <!-- ExerciseChooser -->
+    <string name="title_activity_exercise_chooser">Choose your exercise</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="dialog_title_delete">Delete exercise \"%1$s\"?</string>
+    <string name="dialog_message_delete">This will delete all the settings under this exercise.</string>
+
+    <!-- EditExerciseDialog -->
+    <string name="dialog_title_add">Add New Exercise</string>
+    <string name="dialog_title_edit">Edit Exercise</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_empty">Enter an exercise name.</string>
+    <string name="error_duplicate">An exercise with the same name already exists.</string>
+
+    <string name="regular_exercise">Regular</string>
+    <string name="reaction_exercise">Reaction</string>
+
+    <string name="default_exercise_name">Default</string>
+
+    <!-- Exercise -->
+    <string name="exercise_done_text">Done</string>
+    <string name="exercise_rest_text">Rest</string>
+    <string name="exercise_reps_text">%d reps</string>
+    <string name="exercise_sets_text">%d\nsets</string>
+    <string name="exercise_complete">Exercise Complete</string>
+    <string name="exercise_pause">Pause</string>
+    <string name="exercise_resume">Resume</string>
+
+</resources>

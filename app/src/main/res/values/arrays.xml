@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exercise_types">
+        <item>Regular</item>
+        <item>Reaction</item>
+    </string-array>
+</resources>

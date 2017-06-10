@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "420482258068",
+    "firebase_url": "https://myhandycoach.firebaseio.com",
+    "project_id": "myhandycoach",
+    "storage_bucket": "myhandycoach.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420482258068:android:ab4357cc08dfbd22",
+        "android_client_info": {
+          "package_name": "com.genenakagaki.myhandycoach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420482258068-9jqcstgv3djajtcoic5rci30l2eke8gh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.genenakagaki.myhandycoach",
+            "certificate_hash": "6385321e810b0e6f961c4d966f834c4204e5c199"
+          }
+        },
+        {
+          "client_id": "420482258068-26f7mdscnebgde6j5cqeg7i025v9u2g2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl_6lY9eDvsLiEf3JkNQl-cDDZLBxLl8s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420482258068-26f7mdscnebgde6j5cqeg7i025v9u2g2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

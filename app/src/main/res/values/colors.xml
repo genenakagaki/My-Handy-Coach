@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#607D8B</color>
+    <color name="colorPrimaryDark">#37474F</color>
+    <color name="colorAccent">#FF5722</color>
+
+    <color name="error">#FFDD2C00</color>
+
+    <color name="lightGrayColor">#CCCCCC</color>
+    <color name="restProgressColor">#00BCD4</color>
+    <color name="green">#64DD17</color>
+    <color name="repsProgressColor">@color/colorAccent</color>
+</resources>

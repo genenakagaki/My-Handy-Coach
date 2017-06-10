@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.genenakagaki.myhandycoach.fragment.MainFragment">
+
+
+
+    <Button
+        android:id="@+id/regular_exercise_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/regular_exercise"/>
+
+    <Button
+        android:id="@+id/reaction_exercise_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reaction_exercise"/>
+
+</LinearLayout>
