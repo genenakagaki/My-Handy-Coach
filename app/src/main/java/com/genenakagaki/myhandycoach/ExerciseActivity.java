@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.genenakagaki.myhandycoach.data.AppPreference;
 import com.genenakagaki.myhandycoach.fragment.AbstractExerciseFragment;
 import com.genenakagaki.myhandycoach.fragment.ReactionExerciseFragment;
 import com.genenakagaki.myhandycoach.fragment.RegularExerciseFragment;
@@ -16,6 +17,8 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,6 +117,8 @@ public class ExerciseActivity extends AppCompatActivity implements View.OnClickL
 
         if (fragment.isCompleted()) {
             Timber.d("onBackPressed exerciseCompleted");
+
+            AppPreference.setLastExerciseDate(this, Calendar.getInstance().getTime());
 
             Bundle bundle = new Bundle();
             bundle.putString(ANALYTICS_EXERCISE_RESULT, "Exercise Completed");

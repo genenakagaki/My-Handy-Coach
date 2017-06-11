@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_card_enabled"
+    android:backgroundTint="@color/colorPrimary"
+    android:gravity="center">
 
-    <FrameLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_circle">
+        android:gravity="center"
+        android:text="@string/appwidget_goal_label"
+        android:textColor="@color/colorAccent"/>
+
+    <FrameLayout
+        android:id="@+id/goal_complete_image_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="@drawable/background_circle"
+        android:backgroundTint="@color/green"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check" />
+            android:src="@drawable/ic_check"
+            android:tint="@android:color/white"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/goal_imcomplete_image_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:background="@drawable/background_circle"
+        android:backgroundTint="@android:color/darker_gray">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clear"
+            android:tint="@android:color/white"/>
     </FrameLayout>
 
 </LinearLayout>

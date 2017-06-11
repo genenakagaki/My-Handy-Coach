@@ -55,8 +55,8 @@
     <string name="error_empty">Enter an exercise name.</string>
     <string name="error_duplicate">An exercise with the same name already exists.</string>
 
-    <string name="regular_exercise">Regular</string>
-    <string name="reaction_exercise">Reaction</string>
+    <string name="regular_exercise">Regular Exercise</string>
+    <string name="reaction_exercise">Reaction Exercise</string>
 
     <string name="default_exercise_name">Default</string>
 
@@ -68,5 +68,8 @@
     <string name="exercise_complete">Exercise Complete</string>
     <string name="exercise_pause">Pause</string>
     <string name="exercise_resume">Resume</string>
+
+    <!-- AppWidget -->
+    <string name="appwidget_goal_label">Daily exercise</string>
 
 </resources>
