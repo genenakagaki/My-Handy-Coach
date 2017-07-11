@@ -2,11 +2,7 @@ package com.genenakagaki.myhandycoach;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,30 +10,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.genenakagaki.myhandycoach.fragment.AbstractExerciseSettingsFragment;
-import com.genenakagaki.myhandycoach.fragment.ReactionExerciseSettingsFragment;
-import com.genenakagaki.myhandycoach.fragment.RegularExerciseSettingsFragment;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.genenakagaki.myhandycoach.dialog.EditExerciseDialog;
+import com.genenakagaki.myhandycoach.fragment.ExerciseChooserFragment;
+import com.genenakagaki.myhandycoach.fragment.MainFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, MainFragment.OnExerciseTypeClickListener, ExerciseChooserFragment.OnModeChangeListener {
+
+    private static final String EXERCISE_CHOOSER_FRAGMENT_TAG = "EXERCISE_CHOOSER_FRAGMENT_TAG";
+
+    private boolean mIsTablet;
+    private ExerciseType mExerciseType;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tablayout) TabLayout tabLayout;
-    @BindView(R.id.start_exercise_button) Button startExerciseButton;
+    @BindView(R.id.cancel_button) Button cancelButton;
+    @BindView(R.id.add_exercise_fab) FloatingActionButton addExerciseFab;
 
     private Unbinder unbinder;
-
-    private static int sCurrentViewPagerItem = -1;
-
-    private ExercisePagerAdapter mExercisePagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,33 +42,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setSupportActionBar(toolbar);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mExercisePagerAdapter = new ExercisePagerAdapter(getSupportFragmentManager());
+        if (findViewById(R.id.fragment_container) == null) {
+            Timber.d("Device is tablet");
+            mIsTablet = true;
+            mExerciseType = ExerciseType.REGULAR;
 
-        // Set up the ViewPager with the sections adapter.
-        viewPager.setAdapter(mExercisePagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-            @Override
-            public void onPageSelected(int position) {
-                sCurrentViewPagerItem = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {}
-        });
-        tabLayout.setupWithViewPager(viewPager);
-
-        if (sCurrentViewPagerItem == -1) {
-            sCurrentViewPagerItem = 0;
+            addExerciseFab.setVisibility(View.VISIBLE);
+            addExerciseFab.setOnClickListener(this);
+            cancelButton.setOnClickListener(this);
         } else {
-            viewPager.setCurrentItem(sCurrentViewPagerItem);
+            Timber.d("Device is handset");
+            mIsTablet = false;
         }
 
-        startExerciseButton.setOnClickListener(this);
+        if (savedInstanceState == null) {
+            if (mIsTablet) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_left, new MainFragment())
+                        .replace(
+                                R.id.fragment_container_right,
+                                ExerciseChooserFragment.newInstance(mExerciseType),
+                                EXERCISE_CHOOSER_FRAGMENT_TAG)
+                        .commit();
+            } else {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new MainFragment())
+                        .commit();
+            }
+        }
 
         // TODO: remove
         ButterKnife.setDebug(true);
@@ -110,67 +105,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == startExerciseButton.getId()) {
-            int index = viewPager.getCurrentItem();
-            AbstractExerciseSettingsFragment fragment =
-                    (AbstractExerciseSettingsFragment) mExercisePagerAdapter.getFragment(index);
+        switch (v.getId()) {
+            case R.id.add_exercise_fab:
+                EditExerciseDialog dialog = EditExerciseDialog.newInstance(mExerciseType);
+                dialog.show(getSupportFragmentManager(), "");
+                break;
+            case R.id.cancel_button:
+                onModeChanged(ExerciseChooserFragment.MODE_CHOOSE);
+        }
+    }
 
-            boolean isValid = fragment.validateInputs();
-            if (isValid) {
-                fragment.saveExerciseSettings();
+    @Override
+    public void onExerciseTypeSelected(ExerciseType exerciseType) {
+        mExerciseType = exerciseType;
 
-                Intent intent = new Intent(this, ExerciseActivity.class);
-                if (index == 0) {
-                    intent.putExtra(ExerciseActivity.EXTRA_EXERCISE_TYPE, ExerciseType.REGULAR);
-                } else {
-                    intent.putExtra(ExerciseActivity.EXTRA_EXERCISE_TYPE, ExerciseType.REACTION);
-                }
-                startActivity(intent);
+        if (mIsTablet) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_right, ExerciseChooserFragment.newInstance(mExerciseType))
+                    .commit();
+        } else {
+            switch (exerciseType) {
+                case REGULAR:
+                    Intent intent = new Intent(this, ExerciseChooserActivity.class);
+                    intent.putExtra(ExerciseChooserActivity.EXTRA_EXERCISE_TYPE, exerciseType);
+                    startActivity(intent);
+                    break;
+                case REACTION:
+                    intent = new Intent(this, ExerciseChooserActivity.class);
+                    intent.putExtra(ExerciseChooserActivity.EXTRA_EXERCISE_TYPE, exerciseType);
+                    startActivity(intent);
+                    break;
             }
         }
     }
 
-    public class ExercisePagerAdapter extends FragmentPagerAdapter {
+    @Override
+    public void onModeChanged(int mode) {
+        Timber.d("onModeChanged");
 
-        private Map<Integer, Fragment> pageReferenceMap = new HashMap<>();
-
-        public ExercisePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            if (position == 0) {
-                Timber.d("Creating fragment with regular exercise.  Position: " + position);
-                Fragment fragment = new RegularExerciseSettingsFragment();
-                pageReferenceMap.put(position, fragment);
-                return fragment;
-            } else {
-                Timber.d("Creating fragment with regular exercise.  Position: " + position);
-                Fragment fragment = new ReactionExerciseSettingsFragment();
-                pageReferenceMap.put(position, fragment);
-                return fragment;
+        if (mode == ExerciseChooserFragment.MODE_CHOOSE) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            switch (mExerciseType) {
+                case REGULAR:
+                    getSupportActionBar().setTitle(R.string.regular_exercise);
+                    break;
+                case REACTION:
+                    getSupportActionBar().setTitle(R.string.reaction_exercise);
             }
+            cancelButton.setVisibility(View.GONE);
+
+        } else { // MODE_EDIT
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setTitle(null);
+            cancelButton.setVisibility(View.VISIBLE);
         }
 
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.regular_exercise);
-                case 1:
-                    return getString(R.string.reaction_exercise);
-            }
-            return null;
-        }
-
-        public Fragment getFragment(int position) {
-            return pageReferenceMap.get(position);
+        ExerciseChooserFragment fragment = (ExerciseChooserFragment) getSupportFragmentManager()
+                .findFragmentByTag(EXERCISE_CHOOSER_FRAGMENT_TAG);
+        if (fragment != null) {
+            fragment.setMode(mode);
         }
     }
 }

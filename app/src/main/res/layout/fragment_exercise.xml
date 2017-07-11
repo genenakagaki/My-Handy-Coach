@@ -87,7 +87,8 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:src="@drawable/ic_check"
-                        android:tint="@android:color/white"/>
+                        android:tint="@android:color/white"
+                        android:contentDescription="@string/exercise_complete"/>
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.genenakagaki.myhandycoach.ExerciseChooserActivity;
 import com.genenakagaki.myhandycoach.ExerciseType;
-import com.genenakagaki.myhandycoach.MainActivity;
 import com.genenakagaki.myhandycoach.R;
 import com.genenakagaki.myhandycoach.data.ReactionExerciseDb;
 import com.genenakagaki.myhandycoach.data.model.ReactionExercise;
@@ -33,7 +31,6 @@ public class ReactionExerciseSettingsFragment extends AbstractExerciseSettingsFr
     @BindView(R.id.choices_inputlayout) TextInputLayout choicesInputLayout;
     @BindView(R.id.rest_duration_picker) DurationPicker restDurationPicker;
     @BindView(R.id.duration_picker_bottom) DurationPicker choiceDurationPicker;
-    @BindView(R.id.discard_changes_button) Button discardChangesButton;
 
     private ReactionExercise mReactionExercise;
 

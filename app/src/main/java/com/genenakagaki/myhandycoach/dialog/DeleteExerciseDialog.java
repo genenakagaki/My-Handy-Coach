@@ -8,13 +8,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
 import com.genenakagaki.myhandycoach.ExerciseType;
-import com.genenakagaki.myhandycoach.MainActivity;
 import com.genenakagaki.myhandycoach.R;
 import com.genenakagaki.myhandycoach.data.ReactionExerciseDb;
 import com.genenakagaki.myhandycoach.data.RegularExerciseDb;
-import com.genenakagaki.myhandycoach.exception.ExerciseNotFoundException;
 
-import timber.log.Timber;
+import java.util.List;
 
 /**
  * Created by gene on 4/29/17.
@@ -26,12 +24,18 @@ public class DeleteExerciseDialog extends DialogFragment {
     public static final String ARG_EXERCISE_ID = "arg_exercise_id";
 
     private ExerciseType mExerciseType;
-    private long mExerciseId;
+    private long[] mSelectedExerciseIds;
 
-    public static DeleteExerciseDialog newInstance(ExerciseType exerciseType, long exerciseId) {
+    public static DeleteExerciseDialog newInstance(ExerciseType exerciseType, List<Long> selectedExerciseIds) {
+        // Convert List<Long> to long[]
+        long[] selectedExerciseIdsArray = new long[selectedExerciseIds.size()];
+        for (int i = 0; i < selectedExerciseIds.size(); i++) {
+            selectedExerciseIdsArray[i] = selectedExerciseIds.get(i);
+        }
+
         Bundle args = new Bundle();
         args.putSerializable(ARG_EXERCISE_TYPE, exerciseType);
-        args.putLong(ARG_EXERCISE_ID, exerciseId);
+        args.putLongArray(ARG_EXERCISE_ID, selectedExerciseIdsArray);
         DeleteExerciseDialog fragment = new DeleteExerciseDialog();
         fragment.setArguments(args);
         return fragment;
@@ -45,44 +49,36 @@ public class DeleteExerciseDialog extends DialogFragment {
 
         if (getArguments() != null) {
             mExerciseType = (ExerciseType) getArguments().getSerializable(ARG_EXERCISE_TYPE);
-            mExerciseId = getArguments().getLong(ARG_EXERCISE_ID);
+            mSelectedExerciseIds = getArguments().getLongArray(ARG_EXERCISE_ID);
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String exerciseName;
-        try {
-            switch (mExerciseType) {
-                case REGULAR:
-                    exerciseName = RegularExerciseDb.getExercise(getActivity(), mExerciseId).name;
-                    break;
-                default: // REACTION
-                    exerciseName = ReactionExerciseDb.getExercise(getActivity(), mExerciseId).name;
-                    break;
-            }
-        } catch (ExerciseNotFoundException e) {
-            Timber.d(e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-
-        String title = getString(R.string.dialog_title_delete, exerciseName);
+//        String exerciseName;
+//        try {
+//            switch (mExerciseType) {
+//                case REGULAR:
+//                    exerciseName = RegularExerciseDb.getExercise(getActivity(), mSelectedExerciseIds).name;
+//                    break;
+//                default: // REACTION
+//                    exerciseName = ReactionExerciseDb.getExercise(getActivity(), mSelectedExerciseIds).name;
+//                    break;
+//            }
+//        } catch (ExerciseNotFoundException e) {
+//            Timber.d(e.getMessage());
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//        String title = getString(R.string.dialog_title_delete, exerciseName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(title)
-                .setMessage(R.string.dialog_message_delete)
+        builder.setTitle(R.string.delete_dialog_title_selected)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (mExerciseType) {
-                            case REGULAR:
-                                RegularExerciseDb.deleteExercise(getActivity(), mExerciseId);
-                                break;
-                            case REACTION:
-                                ReactionExerciseDb.deleteExercise(getActivity(), mExerciseId);
-                                break;
-                        }
+                        deleteSelectedExercises();
                     }
                 })
                 .setNegativeButton(R.string.cancel, null);
@@ -98,4 +94,19 @@ public class DeleteExerciseDialog extends DialogFragment {
         });
         return alertDialog;
     }
+
+    private void deleteSelectedExercises() {
+        switch (mExerciseType) {
+            case REGULAR:
+                for (long exerciseId : mSelectedExerciseIds) {
+                    RegularExerciseDb.deleteExercise(getActivity(), exerciseId);
+                }
+                break;
+            case REACTION:
+                for (long exerciseId : mSelectedExerciseIds) {
+                    ReactionExerciseDb.deleteExercise(getActivity(), exerciseId);
+                }
+        }
+    }
+
 }

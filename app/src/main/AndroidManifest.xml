@@ -3,7 +3,7 @@
     package="com.genenakagaki.myhandycoach">
 
     <application
-        android:name="com.genenakagaki.myhandycoach.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.genenakagaki.myhandycoach.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,38 +21,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.genenakagaki.myhandycoach.ExerciseActivity"
+            android:name=".ExerciseActivity"
             android:label="@string/title_activity_exercise"
-            android:parentActivityName="com.genenakagaki.myhandycoach.MainActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.genenakagaki.myhandycoach.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ExerciseChooserActivity"
+            android:label="@string/title_activity_exercise"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.genenakagaki.myhandycoach.MainActivity" />
         </activity>
         <activity
-            android:name="com.genenakagaki.myhandycoach.ExerciseChooserActivity"
-            android:label="@string/title_activity_exercise_chooser"
-            android:parentActivityName="com.genenakagaki.myhandycoach.MainActivity"
+            android:name=".ExerciseSettingActivity"
+            android:label="@string/title_activity_exercise"
+            android:parentActivityName=".ExerciseChooserActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.genenakagaki.myhandycoach.MainActivity" />
+                android:value="com.genenakagaki.myhandycoach.ExerciseChooserActivity" />
         </activity>
 
-        <receiver android:name=".widget.GoalAppWidgetProvider" >
+        <receiver android:name=".widget.GoalAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/goal_appwidget_info" />
         </receiver>
 
         <!-- Content Provider -->
         <provider
-            android:name="com.genenakagaki.myhandycoach.data.ExerciseProvider"
+            android:name=".data.ExerciseProvider"
             android:authorities="@string/content_authority"
             android:exported="false" />
-
 
     </application>
 

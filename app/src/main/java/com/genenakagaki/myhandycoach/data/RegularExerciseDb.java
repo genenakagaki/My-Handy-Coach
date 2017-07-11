@@ -13,7 +13,6 @@ import com.genenakagaki.myhandycoach.exception.PreferenceNotFoundException;
 
 import timber.log.Timber;
 
-import static com.genenakagaki.myhandycoach.R.string.exercise;
 import static com.genenakagaki.myhandycoach.data.ExerciseContract.RegularExerciseEntry;
 
 /**

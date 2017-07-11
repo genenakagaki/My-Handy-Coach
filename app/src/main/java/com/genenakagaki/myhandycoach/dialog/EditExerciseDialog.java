@@ -76,11 +76,7 @@ public class EditExerciseDialog extends DialogFragment {
             mExerciseType = (ExerciseType) getArguments().getSerializable(ARG_EXERCISE_TYPE);
             mExerciseId = getArguments().getLong(ARG_EXERCISE_ID, -1);
 
-            if (mExerciseId == -1) {
-                mIsNewExercise = true;
-            } else {
-                mIsNewExercise = false;
-            }
+            mIsNewExercise = mExerciseId == -1;
         }
     }
 

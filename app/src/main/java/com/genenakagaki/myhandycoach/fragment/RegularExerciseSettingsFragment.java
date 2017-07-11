@@ -8,7 +8,6 @@ import android.widget.EditText;
 
 import com.genenakagaki.myhandycoach.ExerciseChooserActivity;
 import com.genenakagaki.myhandycoach.ExerciseType;
-import com.genenakagaki.myhandycoach.MainActivity;
 import com.genenakagaki.myhandycoach.R;
 import com.genenakagaki.myhandycoach.data.RegularExerciseDb;
 import com.genenakagaki.myhandycoach.data.model.RegularExercise;

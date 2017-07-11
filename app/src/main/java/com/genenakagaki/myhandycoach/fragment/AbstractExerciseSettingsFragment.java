@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.genenakagaki.myhandycoach.R;
 
@@ -23,7 +22,6 @@ import timber.log.Timber;
 public abstract class AbstractExerciseSettingsFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.exercise_input) TextInputEditText exerciseInput;
-    @BindView(R.id.discard_changes_button) Button discardChangesButton;
 
     private Unbinder unbinder;
 
@@ -40,7 +38,6 @@ public abstract class AbstractExerciseSettingsFragment extends Fragment implemen
         setupView();
 
         exerciseInput.setOnClickListener(this);
-        discardChangesButton.setOnClickListener(this);
 
         return rootView;
     }
@@ -64,11 +61,6 @@ public abstract class AbstractExerciseSettingsFragment extends Fragment implemen
         if (v.getId() == exerciseInput.getId()) {
             onClickExerciseInput(v);
 
-        } else if (v.getId() == discardChangesButton.getId()) {
-            Timber.d("onClick discardChangesButton");
-
-            // recreate fragment without saving changes
-            setupView();
         }
     }
 
