@@ -6,7 +6,7 @@
 
     <color name="error">#FFDD2C00</color>
 
-    <color name="lightGrayColor">#CCCCCC</color>
+    <color name="lightGray">#CCCCCC</color>
     <color name="restProgressColor">#00BCD4</color>
     <color name="green">#64DD17</color>
     <color name="repsProgressColor">@color/colorAccent</color>

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.genenakagaki.myhandycoach.ExerciseType;
 import com.genenakagaki.myhandycoach.R;
@@ -54,6 +55,7 @@ public class ExerciseChooserFragment extends Fragment implements LoaderManager.L
     private OnModeChangeListener mListener;
 
     @BindView(R.id.listview) ListView exerciseListView;
+    @BindView(R.id.empty) TextView emptyTextView;
 
     private Unbinder unbinder;
 
@@ -87,6 +89,7 @@ public class ExerciseChooserFragment extends Fragment implements LoaderManager.L
         mExerciseChooserCursorAdapter = new ExerciseChooserCursorAdapter(getActivity(), null, 0, mExerciseType);
 
         exerciseListView.setAdapter(mExerciseChooserCursorAdapter);
+        exerciseListView.setEmptyView(emptyTextView);
         exerciseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

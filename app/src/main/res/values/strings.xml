@@ -45,6 +45,7 @@
     <!-- ExerciseChooser -->
     <string name="title_activity_exercise_chooser">Choose your exercise</string>
     <string name="exercise_chooser_fab_content_description">Add new exercise</string>
+    <string name="exercise_list_empty">No exercises created yet.</string>
 
     <!-- DeleteExerciseDialog -->
     <string name="delete_dialog_title">Delete exercise \"%1$s\"?</string>
